@@ -1,0 +1,49 @@
+import React from "react";
+import "../index.css";
+
+const App = () => {
+  function insertAfter(newNode, existingNode) {
+    existingNode.insertBefore(newNode, existingNode[0]);
+  }
+
+  const handleSubmit = (htmlid) => {
+    const input = document.getElementById(htmlid);
+    const par = input.parentElement;
+    var list = `
+        <div>
+          <li>${input.value}</li>
+          <input type="text" id=${input.value} autocomplete="off" />
+          <button type="submit" id=${input.value + "-btn"}>
+            Submit
+          </button>
+        </div>
+      `;
+
+    var newItem = document.createElement("UL");
+    newItem.innerHTML = list;
+    
+    insertAfter(newItem, par);
+
+    var select = document.getElementById(input.value + "-btn");
+    select.addEventListener("click", () => {
+      handleSubmit(input.value);
+    });
+  };
+
+  return (
+    <div className="main-box">
+      <div className="ankit">
+        <div>
+          <label>Write your comment</label>
+          <br />
+          <input type="text" id="main" autocomplete="off" />
+          <button type="submit" onClick={() => handleSubmit("main")}>
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
